@@ -1,14 +1,15 @@
 import React from 'react'
-import ResetCSS from './resetCSS'
-import GlobalStyle from './globalStyles'
+
+import ResetCSS from './ResetCSS'
+import GlobalStyle from './GlobalStyles'
+import Login from './Pages/Login'
 
 function App () {
   return (
     <>
       <ResetCSS />
       <GlobalStyle />
-
-      <h1>Home</h1>
+      <Login />
     </>
   )
 }
