@@ -2,14 +2,14 @@ import React from 'react'
 
 import ResetCSS from './ResetCSS'
 import GlobalStyle from './GlobalStyles'
-import Login from './Pages/Login'
+import Routes from './Routes'
 
 function App () {
   return (
     <>
       <ResetCSS />
       <GlobalStyle />
-      <Login />
+      <Routes />
     </>
   )
 }
