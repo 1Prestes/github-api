@@ -1,11 +1,12 @@
 import axios from 'axios'
 
-export const baseUrl = path => {
-  return `https://api.github.com/users/${path}`
-}
+const api = axios.create({
+  baseURL: 'https://api.github.com/users/'
+})
+api.defaults.headers.authorization = `Basic ${btoa(
+  `${process.env.REACT_APP_GITHUB_AUTH_USERNAME}:${process.env.REACT_APP_GITHUB_AUTH_PERSONAL_TOKEN}`
+)}`
 
 export const getUser = (path, options) => {
-  const url = baseUrl(path)
-
-  return axios.get(url, options)
+  return api.get(path, options)
 }
