@@ -1,10 +1,12 @@
-import React, { useState } from 'react'
+import React from 'react'
 import PropTypes from 'prop-types'
 
 import Context from './AuthContext'
+import { setCookie as setToken, getCookie } from '../Utils/storageCookie'
 
 const AuthProvider = ({ children }) => {
-  const [token, setToken] = useState(null)
+  const token = getCookie('userAuth')
+
   return (
     <Context.Provider value={{ token, setToken }}>{children}</Context.Provider>
   )
@@ -13,5 +15,5 @@ const AuthProvider = ({ children }) => {
 export default AuthProvider
 
 AuthProvider.propTypes = {
-  children: PropTypes.element
+  children: PropTypes.array
 }

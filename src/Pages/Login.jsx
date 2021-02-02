@@ -1,7 +1,13 @@
-import React from 'react'
+import React, { useContext, useEffect } from 'react'
 import styled from 'styled-components'
+import { useHistory } from 'react-router-dom'
+
+import AuthContext from '../Context/AuthContext'
+import GenerateToken from '../FakeServices/generate-jwt'
+
 import { IconContext } from 'react-icons'
 import { AiFillGithub, AiOutlineArrowRight } from 'react-icons/ai'
+import { getUser } from '../Utils/axios-http-client'
 
 const Wrapper = styled.div`
   display: flex;
@@ -44,6 +50,39 @@ const Button = styled.button`
 `
 
 const Login = () => {
+  const { token, setToken } = useContext(AuthContext)
+  const [user, setUser] = React.useState('')
+  const history = useHistory()
+
+  useEffect(() => {
+    if (token) return history.push('/user')
+  }, [token])
+
+  const onChange = e => {
+    setUser(e.target.value)
+  }
+
+  const signIn = token => {
+    if (!token) return null
+    return setToken('userAuth', token)
+  }
+
+  const onSubmit = async e => {
+    e.preventDefault()
+    if (!user.trim()) return
+
+    try {
+      const data = await getUser(`${user}`).then(res => res.data)
+      const newToken = GenerateToken(data.login)
+      signIn(newToken)
+      if (newToken) {
+        history.push('/user')
+      }
+    } catch (err) {
+      return err.message || 'User not found!'
+    }
+  }
+
   return (
     <Wrapper>
       <IconContext.Provider
@@ -52,7 +91,12 @@ const Login = () => {
         <AiFillGithub />
       </IconContext.Provider>
       <Form>
-        <Input type='text' name='user' placeholder='Usuário' />
+        <Input
+          onChange={onChange}
+          type='text'
+          name='user'
+          placeholder='Usuário'
+        />
         <IconContext.Provider
           value={{
             size: '1.2em',
@@ -60,7 +104,7 @@ const Login = () => {
             title: 'Arrow right'
           }}
         >
-          <Button>
+          <Button onClick={onSubmit}>
             ENTRAR
             <AiOutlineArrowRight />
           </Button>
