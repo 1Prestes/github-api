@@ -1,3 +1,4 @@
+/* eslint-disable camelcase */
 import React, { useContext, useEffect } from 'react'
 import styled from 'styled-components'
 import { useHistory } from 'react-router-dom'
@@ -8,6 +9,7 @@ import GenerateToken from '../FakeServices/generate-jwt'
 import { IconContext } from 'react-icons'
 import { AiFillGithub, AiOutlineArrowRight } from 'react-icons/ai'
 import { getUser } from '../Utils/axios-http-client'
+import useLocalStorage from '../Utils/useLocalStorage'
 
 const Wrapper = styled.div`
   display: flex;
@@ -53,9 +55,18 @@ const Login = () => {
   const { token, setToken } = useContext(AuthContext)
   const [user, setUser] = React.useState('')
   const history = useHistory()
+  const [gitUserData, setGitUserData] = useLocalStorage(
+    process.env.REACT_APP_STORAGE_KEY || '@GitHub-API-UserDataResponse',
+    {}
+  )
 
   useEffect(() => {
     if (token) return history.push('/user')
+    if (gitUserData && !token) {
+      localStorage.removeItem(
+        process.env.REACT_APP_STORAGE_KEY || '@GitHub-API-UserDataResponse'
+      )
+    }
   }, [token])
 
   const onChange = e => {
@@ -64,7 +75,49 @@ const Login = () => {
 
   const signIn = token => {
     if (!token) return null
-    return setToken('userAuth', token)
+    return setToken(
+      process.env.REACT_APP_GITHUB_USER_COOKIE_NAME || '@GITHUB_USER_TOKEN_AUTH',
+      token
+    )
+  }
+
+  const userStorage = data => {
+    const {
+      login,
+      name,
+      email,
+      location,
+      company,
+      bio,
+      avatar_url,
+      followers_url,
+      following_url,
+      organizations_url,
+      starred_url,
+      public_repos,
+      public_gists,
+      followers,
+      following
+    } = data
+
+    setGitUserData({
+      login,
+      name,
+      email,
+      location,
+      company,
+      bio,
+      avatar_url,
+      followers_url,
+      following_url,
+      organizations_url,
+      starred_url,
+      public_repos,
+      public_gists,
+      followers,
+      following
+    })
+    return { message: 'created' }
   }
 
   const onSubmit = async e => {
@@ -74,7 +127,10 @@ const Login = () => {
     try {
       const data = await getUser(`${user}`).then(res => res.data)
       const newToken = GenerateToken(data.login)
+
+      userStorage(data)
       signIn(newToken)
+
       if (newToken) {
         history.push('/user')
       }
