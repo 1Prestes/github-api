@@ -116,7 +116,9 @@ const User = () => {
   const history = useHistory()
 
   const signOut = () => {
-    removeCookie('userAuth')
+    removeCookie(
+      process.env.REACT_APP_GITHUB_USER_COOKIE_NAME || '@GITHUB_USER_TOKEN_AUTH'
+    )
     history.push('/')
   }
 
