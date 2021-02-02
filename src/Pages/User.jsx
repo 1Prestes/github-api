@@ -3,6 +3,8 @@ import styled from 'styled-components'
 import { IconContext } from 'react-icons'
 import { FiLogOut, FiGithub } from 'react-icons/fi'
 import { BiHomeAlt, BiGroup } from 'react-icons/bi'
+import { removeCookie } from '../Utils/storageCookie'
+import { useHistory } from 'react-router-dom'
 
 const Header = styled.div`
   display: flex;
@@ -11,11 +13,12 @@ const Header = styled.div`
   background-color: #1f1f1f;
 `
 
-const NavItem = styled.p`
+const NavItem = styled.li`
   display: flex;
   color: #fff;
   font-size: 1.0625em;
   padding: 23px 11px;
+  cursor: pointer;
 `
 
 const FlexCenter = styled.div`
@@ -110,6 +113,13 @@ const NavLink = styled.li`
 `
 
 const User = () => {
+  const history = useHistory()
+
+  const signOut = () => {
+    removeCookie('userAuth')
+    history.push('/')
+  }
+
   return (
     <>
       <Header>
@@ -121,7 +131,7 @@ const User = () => {
             style: { margin: '0 12px' }
           }}
         >
-          <NavItem>
+          <NavItem onClick={signOut}>
             Sair <FiLogOut />
           </NavItem>
         </IconContext.Provider>

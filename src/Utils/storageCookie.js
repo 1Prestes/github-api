@@ -16,3 +16,8 @@ export const getCookie = name => {
   if (!name) return null
   return cookie.get(name)
 }
+
+export const removeCookie = name => {
+  if (!name) return null
+  return cookie.remove(name)
+}
