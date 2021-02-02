@@ -5,7 +5,9 @@ import Context from './AuthContext'
 import { setCookie as setToken, getCookie } from '../Utils/storageCookie'
 
 const AuthProvider = ({ children }) => {
-  const token = getCookie('userAuth')
+  const token = getCookie(
+    process.env.REACT_APP_GITHUB_USER_COOKIE_NAME || '@GITHUB_USER_TOKEN_AUTH'
+  )
 
   return (
     <Context.Provider value={{ token, setToken }}>{children}</Context.Provider>
