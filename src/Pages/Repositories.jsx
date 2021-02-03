@@ -110,7 +110,7 @@ const Repositories = () => {
           }}
         >
           <Back>
-            <Link to='/user'>
+            <Link to='/perfil'>
               <AiOutlineArrowLeft />
             </Link>
           </Back>
