@@ -56,7 +56,7 @@ export const UserName = styled.h1`
   color: #fff;
   font-size: 1.625em;
   font-weight: bold;
-  margin-left: 15px;
+  margin-right: 15px;
 `
 
 export const Actions = styled.div`
