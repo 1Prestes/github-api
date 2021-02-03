@@ -7,6 +7,7 @@ import { getData } from '../Utils/axios-http-client'
 import Navbar from '../Components/Navbar'
 import Container from '../Components/Container'
 import BackButton from '../Components/BackButton'
+import { Link } from 'react-router-dom'
 
 const Header = styled.ul`
   display: flex;
@@ -117,7 +118,9 @@ const Following = () => {
               <FollowingActions>
                 <Actions>
                   <IconContext.Provider value={{ size: '17px', color: '#FFF' }}>
-                    <AiOutlineArrowRight />
+                    <Link to={`/user/${follow.login}`}>
+                      <AiOutlineArrowRight />
+                    </Link>
                   </IconContext.Provider>
                 </Actions>
               </FollowingActions>

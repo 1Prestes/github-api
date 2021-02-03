@@ -1,11 +1,12 @@
 import React, { useEffect, useState } from 'react'
 import styled from 'styled-components'
 import { IconContext } from 'react-icons'
-import { AiOutlineArrowLeft, AiOutlineArrowRight } from 'react-icons/ai'
+import { AiOutlineArrowRight } from 'react-icons/ai'
 import Navbar from '../Components/Navbar'
 import { getData } from '../Utils/axios-http-client'
 import Container from '../Components/Container'
 import { Link } from 'react-router-dom'
+import BackButton from '../Components/BackButton'
 
 const Header = styled.ul`
   display: flex;
@@ -21,13 +22,6 @@ const ContentHeader = styled.li`
   margin-left: -36px;
   font-size: 1.0625em;
   color: #fff;
-`
-const Back = styled.li`
-  display: flex;
-  a {
-    padding: 17px;
-    z-index: 10;
-  }
 `
 
 const FollowerInfo = styled.div`
@@ -123,7 +117,9 @@ const Followers = () => {
               <FollowersActions>
                 <Actions>
                   <IconContext.Provider value={{ size: '17px', color: '#FFF' }}>
-                    <AiOutlineArrowRight />
+                    <Link to={`/user/${follow.login}`}>
+                      <AiOutlineArrowRight />
+                    </Link>
                   </IconContext.Provider>
                 </Actions>
               </FollowersActions>
