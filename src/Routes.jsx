@@ -8,6 +8,7 @@ import SignIn from './Pages/Sign-in'
 import User from './Pages/User'
 import Repositories from './Pages/Repositories'
 import Followers from './Pages/Followers'
+import Following from './Pages/Following'
 
 const Routes = () => {
   return (
@@ -18,6 +19,7 @@ const Routes = () => {
           <PrivateRoutes path='/perfil' component={User} />
           <PrivateRoutes exact path='/repos' component={Repositories} />
           <PrivateRoutes path='/seguidores' component={Followers} />
+          <PrivateRoutes path='/seguindo' component={Following} />
         </AuthProvider>
       </Switch>
     </Router>
