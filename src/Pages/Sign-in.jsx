@@ -41,14 +41,15 @@ const Button = styled.button`
   justify-content: center;
   align-items: center;
   background-color: #ffce00;
+  text-transform: uppercase;
   margin-top: 19px;
   padding: 16px;
+  border: none;
   border-radius: 12px;
-  text-transform: uppercase;
   font-size: 1.25em;
   font-weight: bold;
-  color: #030202;
   box-shadow: #0000001d 0px 3px 6px;
+  color: #030202;
 `
 
 const Login = () => {
