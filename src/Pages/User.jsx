@@ -3,7 +3,7 @@ import styled from 'styled-components'
 import { IconContext } from 'react-icons'
 import { FiLogOut } from 'react-icons/fi'
 import { removeCookie } from '../Utils/storageCookie'
-import { useHistory } from 'react-router-dom'
+import { Link, useHistory } from 'react-router-dom'
 import Navbar from '../Components/Navbar'
 
 const Header = styled.div`
@@ -85,6 +85,11 @@ const Actions = styled.div`
   text-align: center;
   background-color: #5252525d;
 
+  a {
+    text-decoration: none;
+    color: #fff;
+  }
+
   h3 {
     font-size: 2.5em;
     font-weight: bold;
@@ -139,16 +144,22 @@ const User = () => {
         <p>{userData.blog && userData.blog}</p>
         <FlexCenter>
           <Actions>
-            <h3>{(userData.followers && userData.followers) || 0}</h3>
-            <p>Seguidores</p>
+            <Link to='/seguidores'>
+              <h3>{(userData.followers && userData.followers) || 0}</h3>
+              <p>Seguidores</p>
+            </Link>
           </Actions>
           <Actions>
-            <h3>{(userData.following && userData.following) || 0}</h3>
-            <p>Seguindo</p>
+            <Link to='/seguindo'>
+              <h3>{(userData.following && userData.following) || 0}</h3>
+              <p>Seguindo</p>
+            </Link>
           </Actions>
           <Actions>
-            <h3>{(userData.public_repos && userData.public_repos) || 0}</h3>
-            <p>Repos</p>
+            <Link to='/repos'>
+              <h3>{(userData.public_repos && userData.public_repos) || 0}</h3>
+              <p>Repos</p>
+            </Link>
           </Actions>
         </FlexCenter>
         <TitleContainer>
