@@ -114,6 +114,8 @@ const NavLink = styled.li`
 
 const User = () => {
   const history = useHistory()
+  const getUserData = localStorage.getItem(process.env.REACT_APP_STORAGE_KEY)
+  const userData = JSON.parse(getUserData)
 
   const signOut = () => {
     removeCookie(
@@ -125,7 +127,9 @@ const User = () => {
   return (
     <>
       <Header>
-        <NavItem>#anilton.veiga</NavItem>
+        <NavItem>
+          #{userData.name && userData.name.split(' ').join('.')}
+        </NavItem>
         <IconContext.Provider
           value={{
             size: '19px',
@@ -141,39 +145,35 @@ const User = () => {
 
       <UserInfo>
         <FlexCenter>
-          <UserImage src='https://avatars.githubusercontent.com/u/2703782?s=400&u=a768140438376268588c9edd13b3f79eba6b1ee0&v=4' />
+          <UserImage src={userData.avatar_url} />
         </FlexCenter>
         <TitleContainer>
           <BorderLeft />
-          <UserName>Anilton Veiga</UserName>
+          <UserName>{userData.name}</UserName>
         </TitleContainer>
-        <p>anilton.veigaa@gmail.com</p>
-        <p>Itaí/SP</p>
+        <p>{userData.company}</p>
+        <p>{userData.email && userData.email}</p>
+        <p>{userData.location && userData.location}</p>
+        <p>{userData.blog && userData.blog}</p>
         <FlexCenter>
           <Actions>
-            <h3>32</h3>
+            <h3>{(userData.followers && userData.followers) || 0}</h3>
             <p>Seguidores</p>
           </Actions>
           <Actions>
-            <h3>32</h3>
-            <p>Seguidores</p>
+            <h3>{(userData.following && userData.following) || 0}</h3>
+            <p>Seguindo</p>
           </Actions>
           <Actions>
-            <h3>32</h3>
-            <p>Seguidores</p>
+            <h3>{(userData.public_repos && userData.public_repos) || 0}</h3>
+            <p>Repos</p>
           </Actions>
         </FlexCenter>
         <TitleContainer>
           <BorderLeft />
           <h3>BIO</h3>
         </TitleContainer>
-        <p>
-          Contrary to popular belief, Lorem Ipsum is not simply random text. It
-          has roots in a piece of classical Latin literature from 45 BC, making
-          it over 2000 years old. Richard McClintock, a Latin professor at
-          Hampden-Sydney College in Virginia, looked up one of the more obscure
-          Latin words, consectetur.
-        </p>
+        <p>{(userData.bio && userData.bio) || 'Biografia não disponível'}</p>
       </UserInfo>
       <Navbar>
         <IconContext.Provider value={{ size: '30px' }}>
