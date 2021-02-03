@@ -73,7 +73,7 @@ const BorderLeft = styled.div`
   margin-right: 18px;
 `
 
-const RepositoriesActions = styled.div`
+const FollowersActions = styled.div`
   display: flex;
   justify-content: space-between;
   margin: 20px 25px 20px 0;
@@ -89,7 +89,7 @@ const Actions = styled.div`
   }
 `
 
-const Repositories = () => {
+const Followers = () => {
   const getUserData = localStorage.getItem(process.env.REACT_APP_STORAGE_KEY)
   const userData = JSON.parse(getUserData)
   const [followers, setFollowers] = useState(null)
@@ -131,13 +131,13 @@ const Repositories = () => {
                 <UserImage src={follow.avatar_url} />
                 <h3>#{follow.login}</h3>
               </TitleContainer>
-              <RepositoriesActions>
+              <FollowersActions>
                 <Actions>
                   <IconContext.Provider value={{ size: '17px', color: '#FFF' }}>
                     <AiOutlineArrowRight />
                   </IconContext.Provider>
                 </Actions>
-              </RepositoriesActions>
+              </FollowersActions>
             </FollowerInfo>
           ))}
       </Container>
@@ -147,4 +147,4 @@ const Repositories = () => {
   )
 }
 
-export default Repositories
+export default Followers
