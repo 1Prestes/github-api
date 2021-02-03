@@ -8,8 +8,8 @@ import GenerateToken from '../FakeServices/generate-jwt'
 
 import { IconContext } from 'react-icons'
 import { AiFillGithub, AiOutlineArrowRight } from 'react-icons/ai'
-import { getUser } from '../Utils/axios-http-client'
 import useLocalStorage from '../Utils/useLocalStorage'
+import FilterUserData from '../Utils/filterUserData'
 
 const Wrapper = styled.div`
   display: flex;
@@ -76,50 +76,10 @@ const Login = () => {
   const signIn = token => {
     if (!token) return null
     return setToken(
-      process.env.REACT_APP_GITHUB_USER_COOKIE_NAME || '@GITHUB_USER_TOKEN_AUTH',
+      process.env.REACT_APP_GITHUB_USER_COOKIE_NAME ||
+        '@GITHUB_USER_TOKEN_AUTH',
       token
     )
-  }
-
-  const userStorage = data => {
-    const {
-      login,
-      name,
-      email,
-      location,
-      company,
-      bio,
-      avatar_url,
-      followers_url,
-      following_url,
-      organizations_url,
-      starred_url,
-      public_repos,
-      repos_url,
-      public_gists,
-      followers,
-      following
-    } = data
-
-    setGitUserData({
-      login,
-      name,
-      email,
-      location,
-      company,
-      bio,
-      avatar_url,
-      followers_url,
-      following_url,
-      organizations_url,
-      starred_url,
-      public_repos,
-      repos_url,
-      public_gists,
-      followers,
-      following
-    })
-    return { message: 'created' }
   }
 
   const onSubmit = async e => {
@@ -127,10 +87,10 @@ const Login = () => {
     if (!user.trim()) return
 
     try {
-      const data = await getUser(`${user}`).then(res => res.data)
-      const newToken = GenerateToken(data.login)
+      const userData = await FilterUserData(user)
+      setGitUserData(userData)
+      const newToken = GenerateToken(userData.login)
 
-      userStorage(data)
       signIn(newToken)
 
       if (newToken) {
