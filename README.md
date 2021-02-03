@@ -2,7 +2,7 @@
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
-## How to running project
+## How to run project
 
 In the project directory, you can run:
 
