@@ -2,24 +2,21 @@
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
-## Available Scripts
+## How to running project
 
 In the project directory, you can run:
 
-### `yarn start`
+#### 1. `npm install`
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+#### 2. Then, duplicate the .env.example file and rename it to .env
 
-The page will reload if you make edits.\
-You will also see any lint errors in the console.
+#### 3. Generate your GitHub token at [https://docs.github.com/pt/github/authenticating-to-github/creating-a-personal-access-token](https://docs.github.com/pt/github/authenticating-to-github/creating-a-personal-access-token) and place your token and GitHub login in .env file
 
-### `yarn test`
+#### 4. In your terminal run `npm start`
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+#### 5. Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
 
-### `yarn build`
+### `npm run build`
 
 Builds the app for production to the `build` folder.\
 It correctly bundles React in production mode and optimizes the build for the best performance.
