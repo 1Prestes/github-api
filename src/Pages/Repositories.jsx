@@ -7,6 +7,7 @@ import { AiOutlineArrowLeft, AiOutlineStar } from 'react-icons/ai'
 
 import Navbar from '../Components/Navbar'
 import { getData } from '../Utils/axios-http-client'
+import Container from '../Components/Container'
 
 const Header = styled.ul`
   display: flex;
@@ -31,9 +32,6 @@ const Back = styled.li`
   a {
     width: 50px;
   }
-`
-const Container = styled.div`
-  margin-bottom: 90px;
 `
 
 const RepositorieInfo = styled.div`
