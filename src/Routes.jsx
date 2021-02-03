@@ -5,7 +5,7 @@ import AuthProvider from './Context/AuthProvider'
 import PrivateRoutes from './Components/PrivateRoutes'
 
 import SignIn from './Pages/Sign-in'
-import User from './Pages/User'
+import Profile from './Pages/Profile'
 import Repositories from './Pages/Repositories'
 import Followers from './Pages/Followers'
 import Following from './Pages/Following'
@@ -16,7 +16,7 @@ const Routes = () => {
       <Switch>
         <AuthProvider>
           <Route exact path='/' component={SignIn} />
-          <PrivateRoutes path='/perfil' component={User} />
+          <PrivateRoutes path='/perfil' component={Profile} />
           <PrivateRoutes exact path='/repos' component={Repositories} />
           <PrivateRoutes path='/seguidores' component={Followers} />
           <PrivateRoutes path='/seguindo' component={Following} />

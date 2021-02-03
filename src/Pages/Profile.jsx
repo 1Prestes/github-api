@@ -26,7 +26,7 @@ const FlexCenter = styled.div`
   justify-content: center;
 `
 
-const UserInfo = styled.div`
+const ProfileInfo = styled.div`
   display: flex;
   flex-direction: column;
   color: white;
@@ -39,7 +39,7 @@ const UserInfo = styled.div`
   }
 `
 
-const UserImage = styled.img`
+const ProfileImage = styled.img`
   background-color: #6f6f6f;
   width: 115px;
   height: 115px;
@@ -49,7 +49,7 @@ const UserImage = styled.img`
   border-radius: 100px;
 `
 
-const UserName = styled.h1`
+const ProfileName = styled.h1`
   color: #fff;
   font-size: 1.625em;
   font-weight: bold;
@@ -101,10 +101,10 @@ const Actions = styled.div`
   }
 `
 
-const User = () => {
+const Profile = () => {
   const history = useHistory()
-  const getUserData = localStorage.getItem(process.env.REACT_APP_STORAGE_KEY)
-  const userData = JSON.parse(getUserData)
+  const getProfileData = localStorage.getItem(process.env.REACT_APP_STORAGE_KEY)
+  const profileData = JSON.parse(getProfileData)
 
   const signOut = () => {
     removeCookie(
@@ -116,7 +116,7 @@ const User = () => {
   return (
     <>
       <Header>
-        <NavItem>#{userData.login && userData.login}</NavItem>
+        <NavItem>#{profileData.login && profileData.login}</NavItem>
         <IconContext.Provider
           value={{
             size: '19px',
@@ -130,34 +130,34 @@ const User = () => {
         </IconContext.Provider>
       </Header>
 
-      <UserInfo>
+      <ProfileInfo>
         <FlexCenter>
-          <UserImage src={userData.avatar_url} />
+          <ProfileImage src={profileData.avatar_url} />
         </FlexCenter>
         <TitleContainer>
           <BorderLeft />
-          <UserName>{userData.name}</UserName>
+          <ProfileName>{profileData.name}</ProfileName>
         </TitleContainer>
-        <p>{userData.company && userData.company}</p>
-        <p>{userData.email && userData.email}</p>
-        <p>{userData.location && userData.location}</p>
-        <p>{userData.blog && userData.blog}</p>
+        <p>{profileData.company && profileData.company}</p>
+        <p>{profileData.email && profileData.email}</p>
+        <p>{profileData.location && profileData.location}</p>
+        <p>{profileData.blog && profileData.blog}</p>
         <FlexCenter>
           <Actions>
             <Link to='/seguidores'>
-              <h3>{(userData.followers && userData.followers) || 0}</h3>
+              <h3>{(profileData.followers && profileData.followers) || 0}</h3>
               <p>Seguidores</p>
             </Link>
           </Actions>
           <Actions>
             <Link to='/seguindo'>
-              <h3>{(userData.following && userData.following) || 0}</h3>
+              <h3>{(profileData.following && profileData.following) || 0}</h3>
               <p>Seguindo</p>
             </Link>
           </Actions>
           <Actions>
             <Link to='/repos'>
-              <h3>{(userData.public_repos && userData.public_repos) || 0}</h3>
+              <h3>{(profileData.public_repos && profileData.public_repos) || 0}</h3>
               <p>Repos</p>
             </Link>
           </Actions>
@@ -166,11 +166,11 @@ const User = () => {
           <BorderLeft />
           <h3>BIO</h3>
         </TitleContainer>
-        <p>{(userData.bio && userData.bio) || 'Biografia não disponível'}</p>
-      </UserInfo>
+        <p>{(profileData.bio && profileData.bio) || 'Biografia não disponível'}</p>
+      </ProfileInfo>
       <Navbar />
     </>
   )
 }
 
-export default User
+export default Profile
