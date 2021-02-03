@@ -61,7 +61,7 @@ const Login = () => {
   )
 
   useEffect(() => {
-    if (token) return history.push('/user')
+    if (token) return history.push('/perfil')
     if (gitUserData && !token) {
       localStorage.removeItem(
         process.env.REACT_APP_STORAGE_KEY || '@GitHub-API-UserDataResponse'
@@ -95,6 +95,7 @@ const Login = () => {
       organizations_url,
       starred_url,
       public_repos,
+      repos_url,
       public_gists,
       followers,
       following
@@ -113,6 +114,7 @@ const Login = () => {
       organizations_url,
       starred_url,
       public_repos,
+      repos_url,
       public_gists,
       followers,
       following
@@ -132,7 +134,7 @@ const Login = () => {
       signIn(newToken)
 
       if (newToken) {
-        history.push('/user')
+        history.push('/perfil')
       }
     } catch (err) {
       return err.message || 'User not found!'

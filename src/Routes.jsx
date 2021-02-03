@@ -15,9 +15,9 @@ const Routes = () => {
       <Switch>
         <AuthProvider>
           <Route exact path='/' component={SignIn} />
-          <PrivateRoutes path='/user' component={User} />
+          <PrivateRoutes path='/perfil' component={User} />
           <PrivateRoutes exact path='/repos' component={Repositories} />
-          <PrivateRoutes path='/followers' component={Followers} />
+          <PrivateRoutes path='/seguidores' component={Followers} />
         </AuthProvider>
       </Switch>
     </Router>

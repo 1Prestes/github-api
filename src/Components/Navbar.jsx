@@ -39,7 +39,7 @@ export const Navbar = () => {
     <Nav>
       <IconContext.Provider value={{ size: '30px' }}>
         <NavLink>
-          <Link to='/user'>
+          <Link to='/perfil'>
             <BiHomeAlt />
             Home
           </Link>
@@ -51,13 +51,13 @@ export const Navbar = () => {
           </Link>
         </NavLink>
         <NavLink>
-          <Link to='/followers'>
+          <Link to='/seguidores'>
             <BiGroup />
             Seguidores
           </Link>
         </NavLink>
         <NavLink>
-          <Link to='/followers'>
+          <Link to='/seguindo'>
             <BiGroup />
             Seguindo
           </Link>
