@@ -8,6 +8,7 @@ import Navbar from '../Components/Navbar'
 import Container from '../Components/Container'
 import BackButton from '../Components/BackButton'
 import { Link } from 'react-router-dom'
+import { BorderLeft } from '../Components/BorderLeft'
 
 const Header = styled.ul`
   display: flex;
@@ -56,16 +57,6 @@ const TitleContainer = styled.div`
     font-size: 1em;
     font-weight: bold;
   }
-`
-
-const BorderLeft = styled.div`
-  background: #ffce00;
-  width: 10px;
-  height: 42px;
-  border: 1px solid #ffce00;
-  border-bottom-right-radius: 100px;
-  border-top-right-radius: 100px;
-  margin-right: 18px;
 `
 
 const FollowingActions = styled.div`

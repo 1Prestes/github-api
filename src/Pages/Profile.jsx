@@ -1,105 +1,20 @@
 import React from 'react'
-import styled from 'styled-components'
 import { IconContext } from 'react-icons'
 import { FiLogOut } from 'react-icons/fi'
 import { removeCookie } from '../Utils/storageCookie'
 import { Link, useHistory } from 'react-router-dom'
 import Navbar from '../Components/Navbar'
-
-const Header = styled.div`
-  display: flex;
-  justify-content: space-between;
-  height: 126px;
-  background-color: #1f1f1f;
-`
-
-const NavItem = styled.li`
-  display: flex;
-  color: #fff;
-  font-size: 1.0625em;
-  padding: 23px 11px;
-  cursor: pointer;
-`
-
-const FlexCenter = styled.div`
-  display: flex;
-  justify-content: center;
-`
-
-const ProfileInfo = styled.div`
-  display: flex;
-  flex-direction: column;
-  color: white;
-  margin-bottom: 100px;
-
-  p {
-    font-size: 1.125em;
-    margin-left: 24px;
-    line-height: 24px;
-  }
-`
-
-const ProfileImage = styled.img`
-  background-color: #6f6f6f;
-  width: 115px;
-  height: 115px;
-  margin-top: -60px;
-  margin-bottom: 45px;
-  border: 3px solid #fff;
-  border-radius: 100px;
-`
-
-const ProfileName = styled.h1`
-  color: #fff;
-  font-size: 1.625em;
-  font-weight: bold;
-  margin-left: 15px;
-`
-
-const TitleContainer = styled.div`
-  display: flex;
-  align-items: center;
-
-  h3 {
-    font-size: 1.625em;
-    font-weight: bold;
-  }
-`
-
-const BorderLeft = styled.div`
-  background: #ffce00;
-  width: 10px;
-  height: 42px;
-  border: 1px solid #ffce00;
-  border-bottom-right-radius: 100px;
-  border-top-right-radius: 100px;
-  margin-right: 14px;
-`
-
-const Actions = styled.div`
-  display: flex;
-  flex-direction: column;
-  width: 100%;
-  margin: 44px 0;
-  padding: 16px 0;
-  text-align: center;
-  background-color: #5252525d;
-
-  a {
-    text-decoration: none;
-    color: #fff;
-  }
-
-  h3 {
-    font-size: 2.5em;
-    font-weight: bold;
-  }
-
-  p {
-    margin: 0;
-    font-size: 1.0625em;
-  }
-`
+import {
+  Header,
+  NavItem,
+  FlexCenter,
+  UserImage,
+  TitleContainer,
+  UserName,
+  UserInfo,
+  Actions
+} from '../Components/UserComponentsSnnipets'
+import { BorderLeft } from '../Components/BorderLeft'
 
 const Profile = () => {
   const history = useHistory()
@@ -130,13 +45,13 @@ const Profile = () => {
         </IconContext.Provider>
       </Header>
 
-      <ProfileInfo>
+      <UserInfo>
         <FlexCenter>
-          <ProfileImage src={profileData.avatar_url} />
+          <UserImage src={profileData.avatar_url} />
         </FlexCenter>
         <TitleContainer>
           <BorderLeft />
-          <ProfileName>{profileData.name || profileData.login}</ProfileName>
+          <UserName>{profileData.name || profileData.login}</UserName>
         </TitleContainer>
         <p>{profileData.company && profileData.company}</p>
         <p>{profileData.email && profileData.email}</p>
@@ -171,7 +86,7 @@ const Profile = () => {
         <p>
           {(profileData.bio && profileData.bio) || 'Biografia não disponível'}
         </p>
-      </ProfileInfo>
+      </UserInfo>
       <Navbar />
     </>
   )
