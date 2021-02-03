@@ -10,3 +10,7 @@ api.defaults.headers.authorization = `Basic ${btoa(
 export const getUser = (path, options) => {
   return api.get(path, options)
 }
+
+export const getData = (path, options) => {
+  return api.get(path, options)
+}

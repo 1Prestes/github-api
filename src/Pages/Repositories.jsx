@@ -1,11 +1,14 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import styled from 'styled-components'
+import { Link } from 'react-router-dom'
 import { IconContext } from 'react-icons'
-import { FiGithub, FiUnlock, FiLock } from 'react-icons/fi'
-import { BiHomeAlt, BiGroup } from 'react-icons/bi'
+import { FiUnlock, FiLock } from 'react-icons/fi'
 import { AiOutlineArrowLeft, AiOutlineStar } from 'react-icons/ai'
 
-const Header = styled.div`
+import Navbar from '../Components/Navbar'
+import { getData } from '../Utils/axios-http-client'
+
+const Header = styled.ul`
   display: flex;
   align-items: center;
   background-color: #1f1f1f;
@@ -13,7 +16,7 @@ const Header = styled.div`
   margin-bottom: 40px;
 `
 
-const ContentHeader = styled.p`
+const ContentHeader = styled.li`
   display: flex;
   justify-content: center;
   flex: 1;
@@ -21,8 +24,16 @@ const ContentHeader = styled.p`
   font-size: 1.0625em;
   color: #fff;
 `
-const Back = styled.div`
+const Back = styled.li`
+  display: flex;
   padding-left: 17px;
+
+  a {
+    width: 50px;
+  }
+`
+const Container = styled.div`
+  margin-bottom: 90px;
 `
 
 const RepositorieInfo = styled.div`
@@ -75,184 +86,84 @@ const Actions = styled.div`
   }
 `
 
-const Navbar = styled.ul`
-  display: flex;
-  justify-content: center;
-  background-color: #ffffff;
-  border-top-left-radius: 15px;
-  border-top-right-radius: 15px;
-  position: sticky;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  color: #969696;
-`
-
-const NavLink = styled.li`
-  display: flex;
-  align-items: center;
-  flex-direction: column;
-  padding: 16px;
-  font-size: 0.9375em;
-`
-
 const Repositories = () => {
+  const getUserData = localStorage.getItem(process.env.REACT_APP_STORAGE_KEY)
+  const userData = JSON.parse(getUserData)
+  const [repos, setRepos] = useState(null)
+
+  useEffect(async () => {
+    try {
+      const data = await getData(`${userData.login}/repos`).then(
+        res => res.data
+      )
+      setRepos(data)
+    } catch (err) {
+      return err.message || 'Unexpected error'
+    }
+  }, [])
+
   return (
     <>
       <Header>
-        <Back>
-          <IconContext.Provider
-            value={{
-              size: '19px',
-              color: '#FFF'
-            }}
-          >
-            <AiOutlineArrowLeft />
-          </IconContext.Provider>
-        </Back>
-        <ContentHeader>10 repositórios</ContentHeader>
+        <IconContext.Provider
+          value={{
+            size: '19px',
+            color: '#FFF'
+          }}
+        >
+          <Back>
+            <Link to='/user'>
+              <AiOutlineArrowLeft />
+            </Link>
+          </Back>
+        </IconContext.Provider>
+        <ContentHeader>{userData.public_repos} repositórios</ContentHeader>
       </Header>
 
-      <RepositorieInfo>
-        <TitleContainer>
-          <BorderLeft />
-          <h3>brasiliapp-react-native</h3>
-        </TitleContainer>
-        <p>Repository for centralization of the BrasiliApp mobile project</p>
+      <Container>
+        {repos &&
+          repos.map(repo => (
+            <RepositorieInfo key={repo.id}>
+              <TitleContainer>
+                <BorderLeft />
+                <h3>{repo.name}</h3>
+              </TitleContainer>
+              <p>
+                {repo.description ||
+                  'Nenhuma descrição, site ou tópicos fornecidos.'}
+              </p>
 
-        <RepositoriesActions>
-          <Actions>
-            <IconContext.Provider value={{ size: '17px', color: '#FFCE00' }}>
-              <AiOutlineStar />
-              <p> 32</p>
-            </IconContext.Provider>
-          </Actions>
-          <Actions>
-            <IconContext.Provider
-              value={{
-                size: '17px',
-                color: '#63BF1F',
-                style: { margin: '0 13px' }
-              }}
-            >
-              <FiUnlock />
-            </IconContext.Provider>
-            <IconContext.Provider value={{ size: '17px', color: '#CC042A' }}>
-              <FiLock />
-            </IconContext.Provider>
-          </Actions>
-        </RepositoriesActions>
-      </RepositorieInfo>
-      <RepositorieInfo>
-        <TitleContainer>
-          <BorderLeft />
-          <h3>brasiliapp-react-native</h3>
-        </TitleContainer>
-        <p>Repository for centralization of the BrasiliApp mobile project</p>
+              <RepositoriesActions>
+                <Actions>
+                  <IconContext.Provider
+                    value={{ size: '17px', color: '#FFCE00' }}
+                  >
+                    <AiOutlineStar />
+                    <p>{repo.stargazers_count}</p>
+                  </IconContext.Provider>
+                </Actions>
+                <Actions>
+                  <IconContext.Provider
+                    value={{
+                      size: '17px',
+                      color: '#63BF1F',
+                      style: { margin: '0 13px' }
+                    }}
+                  >
+                    <FiUnlock />
+                  </IconContext.Provider>
+                  <IconContext.Provider
+                    value={{ size: '17px', color: '#CC042A' }}
+                  >
+                    <FiLock />
+                  </IconContext.Provider>
+                </Actions>
+              </RepositoriesActions>
+            </RepositorieInfo>
+          ))}
+      </Container>
 
-        <RepositoriesActions>
-          <Actions>
-            <IconContext.Provider value={{ size: '17px', color: '#FFCE00' }}>
-              <AiOutlineStar />
-              <p> 32</p>
-            </IconContext.Provider>
-          </Actions>
-          <Actions>
-            <IconContext.Provider
-              value={{
-                size: '17px',
-                color: '#63BF1F',
-                style: { margin: '0 13px' }
-              }}
-            >
-              <FiUnlock />
-            </IconContext.Provider>
-            <IconContext.Provider value={{ size: '17px', color: '#CC042A' }}>
-              <FiLock />
-            </IconContext.Provider>
-          </Actions>
-        </RepositoriesActions>
-      </RepositorieInfo>
-      <RepositorieInfo>
-        <TitleContainer>
-          <BorderLeft />
-          <h3>brasiliapp-react-native</h3>
-        </TitleContainer>
-        <p>Repository for centralization of the BrasiliApp mobile project</p>
-
-        <RepositoriesActions>
-          <Actions>
-            <IconContext.Provider value={{ size: '17px', color: '#FFCE00' }}>
-              <AiOutlineStar />
-              <p> 32</p>
-            </IconContext.Provider>
-          </Actions>
-          <Actions>
-            <IconContext.Provider
-              value={{
-                size: '17px',
-                color: '#63BF1F',
-                style: { margin: '0 13px' }
-              }}
-            >
-              <FiUnlock />
-            </IconContext.Provider>
-            <IconContext.Provider value={{ size: '17px', color: '#CC042A' }}>
-              <FiLock />
-            </IconContext.Provider>
-          </Actions>
-        </RepositoriesActions>
-      </RepositorieInfo>
-      <RepositorieInfo>
-        <TitleContainer>
-          <BorderLeft />
-          <h3>brasiliapp-react-native</h3>
-        </TitleContainer>
-        <p>Repository for centralization of the BrasiliApp mobile project</p>
-
-        <RepositoriesActions>
-          <Actions>
-            <IconContext.Provider value={{ size: '17px', color: '#FFCE00' }}>
-              <AiOutlineStar />
-              <p> 32</p>
-            </IconContext.Provider>
-          </Actions>
-          <Actions>
-            <IconContext.Provider
-              value={{
-                size: '17px',
-                color: '#63BF1F',
-                style: { margin: '0 13px' }
-              }}
-            >
-              <FiUnlock />
-            </IconContext.Provider>
-            <IconContext.Provider value={{ size: '17px', color: '#CC042A' }}>
-              <FiLock />
-            </IconContext.Provider>
-          </Actions>
-        </RepositoriesActions>
-      </RepositorieInfo>
-      <Navbar>
-        <IconContext.Provider value={{ size: '30px' }}>
-          <NavLink style={{ color: '#000' }}>
-            <BiHomeAlt value={{ style: { color: '#969696' } }} />
-            Home
-          </NavLink>
-          <NavLink>
-            <FiGithub />
-            Repos
-          </NavLink>
-          <NavLink>
-            <BiGroup />
-            Seguidores
-          </NavLink>
-          <NavLink>
-            <BiGroup />
-            Seguindo
-          </NavLink>
-        </IconContext.Provider>
-      </Navbar>
+      <Navbar />
     </>
   )
 }
