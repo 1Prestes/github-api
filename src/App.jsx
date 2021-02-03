@@ -1,6 +1,6 @@
 import React from 'react'
 
-import ResetCSS from './ResetCSS'
+import ResetCSS from './reset-css'
 import GlobalStyle from './GlobalStyles'
 import Routes from './Routes'
 
