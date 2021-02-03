@@ -1,7 +1,7 @@
 import React from 'react'
 
-import ResetCSS from './ResetCSS'
-import GlobalStyle from './GlobalStyles'
+import ResetCSS from './reset-css'
+import GlobalStyle from './global-styles'
 import Routes from './Routes'
 
 function App () {
