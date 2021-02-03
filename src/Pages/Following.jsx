@@ -1,11 +1,12 @@
 import React, { useEffect, useState } from 'react'
 import styled from 'styled-components'
 import { IconContext } from 'react-icons'
-import { AiOutlineArrowLeft, AiOutlineArrowRight } from 'react-icons/ai'
-import Navbar from '../Components/Navbar'
+import { AiOutlineArrowRight } from 'react-icons/ai'
+
 import { getData } from '../Utils/axios-http-client'
+import Navbar from '../Components/Navbar'
 import Container from '../Components/Container'
-import { Link } from 'react-router-dom'
+import BackButton from '../Components/BackButton'
 
 const Header = styled.ul`
   display: flex;
@@ -21,13 +22,6 @@ const ContentHeader = styled.li`
   margin-left: -36px;
   font-size: 1.0625em;
   color: #fff;
-`
-const Back = styled.li`
-  display: flex;
-  a {
-    padding: 17px;
-    z-index: 10;
-  }
 `
 
 const FollowingInfo = styled.div`
@@ -108,18 +102,7 @@ const Following = () => {
   return (
     <>
       <Header>
-        <IconContext.Provider
-          value={{
-            size: '19px',
-            color: '#FFF'
-          }}
-        >
-          <Back>
-            <Link to='/perfil'>
-              <AiOutlineArrowLeft />
-            </Link>
-          </Back>
-        </IconContext.Provider>
+        <BackButton to='/perfil' />
         <ContentHeader>{userData.following} Seguindo</ContentHeader>
       </Header>
       <Container>

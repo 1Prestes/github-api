@@ -108,18 +108,7 @@ const Followers = () => {
   return (
     <>
       <Header>
-        <IconContext.Provider
-          value={{
-            size: '19px',
-            color: '#FFF'
-          }}
-        >
-          <Back>
-            <Link to='/perfil'>
-              <AiOutlineArrowLeft />
-            </Link>
-          </Back>
-        </IconContext.Provider>
+        <BackButton to='/perfil' />
         <ContentHeader>{userData.followers} seguidores</ContentHeader>
       </Header>
       <Container>
