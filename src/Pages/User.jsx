@@ -111,9 +111,7 @@ const User = () => {
   return (
     <>
       <Header>
-        <NavItem>
-          #{userData.name && userData.name.split(' ').join('.')}
-        </NavItem>
+        <NavItem>#{userData.login && userData.login}</NavItem>
         <IconContext.Provider
           value={{
             size: '19px',
@@ -135,7 +133,7 @@ const User = () => {
           <BorderLeft />
           <UserName>{userData.name}</UserName>
         </TitleContainer>
-        <p>{userData.company}</p>
+        <p>{userData.company && userData.company}</p>
         <p>{userData.email && userData.email}</p>
         <p>{userData.location && userData.location}</p>
         <p>{userData.blog && userData.blog}</p>
