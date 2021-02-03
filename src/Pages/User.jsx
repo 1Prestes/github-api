@@ -1,10 +1,10 @@
 import React from 'react'
 import styled from 'styled-components'
 import { IconContext } from 'react-icons'
-import { FiLogOut, FiGithub } from 'react-icons/fi'
-import { BiHomeAlt, BiGroup } from 'react-icons/bi'
+import { FiLogOut } from 'react-icons/fi'
 import { removeCookie } from '../Utils/storageCookie'
 import { useHistory } from 'react-router-dom'
+import Navbar from '../Components/Navbar'
 
 const Header = styled.div`
   display: flex;
@@ -30,6 +30,7 @@ const UserInfo = styled.div`
   display: flex;
   flex-direction: column;
   color: white;
+  margin-bottom: 100px;
 
   p {
     font-size: 1.125em;
@@ -52,6 +53,7 @@ const UserName = styled.h1`
   color: #fff;
   font-size: 1.625em;
   font-weight: bold;
+  margin-left: 15px;
 `
 
 const TitleContainer = styled.div`
@@ -92,24 +94,6 @@ const Actions = styled.div`
     margin: 0;
     font-size: 1.0625em;
   }
-`
-
-const Navbar = styled.ul`
-  display: flex;
-  justify-content: center;
-  background-color: #ffffff;
-  margin-top: 75px;
-  border-top-left-radius: 15px;
-  border-top-right-radius: 15px;
-  color: #969696;
-`
-
-const NavLink = styled.li`
-  display: flex;
-  align-items: center;
-  flex-direction: column;
-  padding: 16px;
-  font-size: 0.9375em;
 `
 
 const User = () => {
@@ -175,26 +159,7 @@ const User = () => {
         </TitleContainer>
         <p>{(userData.bio && userData.bio) || 'Biografia não disponível'}</p>
       </UserInfo>
-      <Navbar>
-        <IconContext.Provider value={{ size: '30px' }}>
-          <NavLink style={{ color: '#000' }}>
-            <BiHomeAlt value={{ style: { color: '#969696' } }} />
-            Home
-          </NavLink>
-          <NavLink>
-            <FiGithub />
-            Repos
-          </NavLink>
-          <NavLink>
-            <BiGroup />
-            Seguidores
-          </NavLink>
-          <NavLink>
-            <BiGroup />
-            Seguindo
-          </NavLink>
-        </IconContext.Provider>
-      </Navbar>
+      <Navbar />
     </>
   )
 }
