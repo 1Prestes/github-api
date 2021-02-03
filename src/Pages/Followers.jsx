@@ -1,18 +1,20 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import styled from 'styled-components'
 import { IconContext } from 'react-icons'
-import { FiGithub } from 'react-icons/fi'
-import { BiHomeAlt, BiGroup } from 'react-icons/bi'
 import { AiOutlineArrowLeft, AiOutlineArrowRight } from 'react-icons/ai'
+import Navbar from '../Components/Navbar'
+import { getData } from '../Utils/axios-http-client'
+import Container from '../Components/Container'
+import { Link } from 'react-router-dom'
 
-const Header = styled.div`
+const Header = styled.ul`
   display: flex;
   align-items: center;
   background-color: #1f1f1f;
   height: 68px;
 `
 
-const ContentHeader = styled.p`
+const ContentHeader = styled.li`
   display: flex;
   justify-content: center;
   flex: 1;
@@ -20,8 +22,12 @@ const ContentHeader = styled.p`
   font-size: 1.0625em;
   color: #fff;
 `
-const Back = styled.div`
-  padding-left: 17px;
+const Back = styled.li`
+  display: flex;
+  a {
+    padding: 17px;
+    z-index: 10;
+  }
 `
 
 const FollowerInfo = styled.div`
@@ -83,169 +89,60 @@ const Actions = styled.div`
   }
 `
 
-const Navbar = styled.ul`
-  display: flex;
-  justify-content: center;
-  background-color: #ffffff;
-  border-top-left-radius: 15px;
-  border-top-right-radius: 15px;
-  position: fixed;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  color: #969696;
-`
-
-const NavLink = styled.li`
-  display: flex;
-  align-items: center;
-  flex-direction: column;
-  padding: 16px;
-  font-size: 0.9375em;
-`
-
 const Repositories = () => {
+  const getUserData = localStorage.getItem(process.env.REACT_APP_STORAGE_KEY)
+  const userData = JSON.parse(getUserData)
+  const [followers, setFollowers] = useState(null)
+
+  useEffect(async () => {
+    try {
+      const data = await getData(`${userData.login}/followers`).then(
+        res => res.data
+      )
+      setFollowers(data)
+    } catch (err) {
+      return err.message || 'Unexpected error'
+    }
+  }, [])
+
   return (
     <>
       <Header>
-        <Back>
-          <IconContext.Provider
-            value={{
-              size: '19px',
-              color: '#FFF'
-            }}
-          >
-            <AiOutlineArrowLeft />
-          </IconContext.Provider>
-        </Back>
-        <ContentHeader>10 seguidores</ContentHeader>
-      </Header>
-
-      <FollowerInfo>
-        <TitleContainer>
-          <BorderLeft />
-          <UserImage src='https://avatars.githubusercontent.com/u/2703782?s=400&u=a768140438376268588c9edd13b3f79eba6b1ee0&v=4' />
-          <h3>#aniltonveiga</h3>
-        </TitleContainer>
-        <RepositoriesActions>
-          <Actions>
-            <IconContext.Provider value={{ size: '17px', color: '#FFF' }}>
-              <AiOutlineArrowRight />
-            </IconContext.Provider>
-          </Actions>
-        </RepositoriesActions>
-      </FollowerInfo>
-
-      <FollowerInfo>
-        <TitleContainer>
-          <BorderLeft />
-          <UserImage src='https://avatars.githubusercontent.com/u/2703782?s=400&u=a768140438376268588c9edd13b3f79eba6b1ee0&v=4' />
-          <h3>#aniltonveiga</h3>
-        </TitleContainer>
-        <RepositoriesActions>
-          <Actions>
-            <IconContext.Provider value={{ size: '17px', color: '#FFF' }}>
-              <AiOutlineArrowRight />
-            </IconContext.Provider>
-          </Actions>
-        </RepositoriesActions>
-      </FollowerInfo>
-
-      <FollowerInfo>
-        <TitleContainer>
-          <BorderLeft />
-          <UserImage src='https://avatars.githubusercontent.com/u/2703782?s=400&u=a768140438376268588c9edd13b3f79eba6b1ee0&v=4' />
-          <h3>#aniltonveiga</h3>
-        </TitleContainer>
-        <RepositoriesActions>
-          <Actions>
-            <IconContext.Provider value={{ size: '17px', color: '#FFF' }}>
-              <AiOutlineArrowRight />
-            </IconContext.Provider>
-          </Actions>
-        </RepositoriesActions>
-      </FollowerInfo>
-
-      <FollowerInfo>
-        <TitleContainer>
-          <BorderLeft />
-          <UserImage src='https://avatars.githubusercontent.com/u/2703782?s=400&u=a768140438376268588c9edd13b3f79eba6b1ee0&v=4' />
-          <h3>#aniltonveiga</h3>
-        </TitleContainer>
-        <RepositoriesActions>
-          <Actions>
-            <IconContext.Provider value={{ size: '17px', color: '#FFF' }}>
-              <AiOutlineArrowRight />
-            </IconContext.Provider>
-          </Actions>
-        </RepositoriesActions>
-      </FollowerInfo>
-
-      <FollowerInfo>
-        <TitleContainer>
-          <BorderLeft />
-          <UserImage src='https://avatars.githubusercontent.com/u/2703782?s=400&u=a768140438376268588c9edd13b3f79eba6b1ee0&v=4' />
-          <h3>#aniltonveiga</h3>
-        </TitleContainer>
-        <RepositoriesActions>
-          <Actions>
-            <IconContext.Provider value={{ size: '17px', color: '#FFF' }}>
-              <AiOutlineArrowRight />
-            </IconContext.Provider>
-          </Actions>
-        </RepositoriesActions>
-      </FollowerInfo>
-
-      <FollowerInfo>
-        <TitleContainer>
-          <BorderLeft />
-          <UserImage src='https://avatars.githubusercontent.com/u/2703782?s=400&u=a768140438376268588c9edd13b3f79eba6b1ee0&v=4' />
-          <h3>#aniltonveiga</h3>
-        </TitleContainer>
-        <RepositoriesActions>
-          <Actions>
-            <IconContext.Provider value={{ size: '17px', color: '#FFF' }}>
-              <AiOutlineArrowRight />
-            </IconContext.Provider>
-          </Actions>
-        </RepositoriesActions>
-      </FollowerInfo>
-
-      <FollowerInfo>
-        <TitleContainer>
-          <BorderLeft />
-          <UserImage src='https://avatars.githubusercontent.com/u/2703782?s=400&u=a768140438376268588c9edd13b3f79eba6b1ee0&v=4' />
-          <h3>#aniltonveiga</h3>
-        </TitleContainer>
-        <RepositoriesActions>
-          <Actions>
-            <IconContext.Provider value={{ size: '17px', color: '#FFF' }}>
-              <AiOutlineArrowRight />
-            </IconContext.Provider>
-          </Actions>
-        </RepositoriesActions>
-      </FollowerInfo>
-
-      <Navbar>
-        <IconContext.Provider value={{ size: '30px' }}>
-          <NavLink style={{ color: '#000' }}>
-            <BiHomeAlt value={{ style: { color: '#969696' } }} />
-            Home
-          </NavLink>
-          <NavLink>
-            <FiGithub />
-            Repos
-          </NavLink>
-          <NavLink>
-            <BiGroup />
-            Seguidores
-          </NavLink>
-          <NavLink>
-            <BiGroup />
-            Seguindo
-          </NavLink>
+        <IconContext.Provider
+          value={{
+            size: '19px',
+            color: '#FFF'
+          }}
+        >
+          <Back>
+            <Link to='/perfil'>
+              <AiOutlineArrowLeft />
+            </Link>
+          </Back>
         </IconContext.Provider>
-      </Navbar>
+        <ContentHeader>{userData.followers} seguidores</ContentHeader>
+      </Header>
+      <Container>
+        {followers &&
+          followers.map(follow => (
+            <FollowerInfo key={follow.id}>
+              <TitleContainer>
+                <BorderLeft />
+                <UserImage src={follow.avatar_url} />
+                <h3>#{follow.login}</h3>
+              </TitleContainer>
+              <RepositoriesActions>
+                <Actions>
+                  <IconContext.Provider value={{ size: '17px', color: '#FFF' }}>
+                    <AiOutlineArrowRight />
+                  </IconContext.Provider>
+                </Actions>
+              </RepositoriesActions>
+            </FollowerInfo>
+          ))}
+      </Container>
+
+      <Navbar />
     </>
   )
 }
