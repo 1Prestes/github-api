@@ -136,7 +136,7 @@ const Profile = () => {
         </FlexCenter>
         <TitleContainer>
           <BorderLeft />
-          <ProfileName>{profileData.name}</ProfileName>
+          <ProfileName>{profileData.name || profileData.login}</ProfileName>
         </TitleContainer>
         <p>{profileData.company && profileData.company}</p>
         <p>{profileData.email && profileData.email}</p>
@@ -157,7 +157,9 @@ const Profile = () => {
           </Actions>
           <Actions>
             <Link to='/repos'>
-              <h3>{(profileData.public_repos && profileData.public_repos) || 0}</h3>
+              <h3>
+                {(profileData.public_repos && profileData.public_repos) || 0}
+              </h3>
               <p>Repos</p>
             </Link>
           </Actions>
@@ -166,7 +168,9 @@ const Profile = () => {
           <BorderLeft />
           <h3>BIO</h3>
         </TitleContainer>
-        <p>{(profileData.bio && profileData.bio) || 'Biografia não disponível'}</p>
+        <p>
+          {(profileData.bio && profileData.bio) || 'Biografia não disponível'}
+        </p>
       </ProfileInfo>
       <Navbar />
     </>
